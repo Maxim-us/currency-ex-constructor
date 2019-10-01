@@ -1,3 +1,33 @@
 .MxCurrencyExWrap {
-  
+	padding: 20px;
+}
+.MxCurrencyItem {
+	width: 25%;
+	display: inline-block;
+}
+.MxCurrencyItem strong {
+	width: 50px;
+    display: inline-block;
+}
+.MxCurrencyBlockColorItem {
+	display: inline-block;
+	margin-right: 20px;
+}
+.MxCurrencyBlockColorItem span {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+	margin-top: 4px;
+}
+
+@media only screen and (max-width: 992px) {
+	.MxCurrencyItem {
+		width: 50%;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.MxCurrencyItem {
+		width: 100%;
+	}
 }

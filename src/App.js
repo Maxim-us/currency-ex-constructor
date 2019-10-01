@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import uuid from 'react-uuid';
 import CurrencyItem from './component/CurrencyItem';
+import CurrencyResult from './component/CurrencyResult';
+import MxCurrencyBoxColorBlock from './component/MxCurrencyBoxColorBlock';
+
 import './App.css';
 
 class App extends Component {
@@ -11,13 +14,18 @@ class App extends Component {
       'RUB',
       'EUR',
       'USD'
-    ]
+    ],
+    cssStyles: {
+      bgc: '#dde9cb',
+      maxWidth: '600px'
+    }    
   };
 
   UNSAFE_componentWillMount() {
     
     // NB
     fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json' )
+    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json
     .then( res => res.json() )
     .then( currenciesNB => {
       this.setState( { currenciesNB: currenciesNB } )
@@ -25,6 +33,7 @@ class App extends Component {
 
   }
 
+  // choose currency
   markCurrency = ( cc ) => {
 
     if( this.state.availableCurrency.includes( cc ) ) {
@@ -51,9 +60,21 @@ class App extends Component {
 
   }
 
+  // bgc
+  changeBGC = ( e ) => {
+    // console.log( e.target.value );
+    let _cssStyles = this.state.cssStyles;
+
+    _cssStyles.bgc = e.target.value;
+
+    this.setState( {
+      cssStyles: _cssStyles
+    } );
+  }
+
   componentDidUpdate() {
 
-    console.log( this.state );
+    // console.log( this.state );
 
   }
 
@@ -73,6 +94,7 @@ class App extends Component {
     return (
       <div className="MxCurrencyExWrap">
         
+        {/* Choose currency */}
         <div className="MxCurrencyExListOfCurrency">
 
           <h2>Choose currency</h2>
@@ -82,6 +104,37 @@ class App extends Component {
 
           </div>
           
+        </div>
+
+        {/* color */}
+        <div className="MxCurrencyBoxColor">
+
+          <h2>Choose color</h2>
+
+          <div>
+          
+            <MxCurrencyBoxColorBlock
+              changeBGC={this.changeBGC}
+            />
+
+          </div>
+
+        </div>
+
+        {/* result */}
+        <div className="MxCurrencyResult">
+
+          <h2>Result</h2>
+          <div>
+
+            <CurrencyResult
+              cssStyles={this.state.cssStyles}
+              currencies={this.state.currenciesNB}
+              availableCurrency={this.state.availableCurrency}
+            />
+
+          </div>
+
         </div>
 
       </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class CurrencyItem extends Component {
 
@@ -16,12 +17,19 @@ class CurrencyItem extends Component {
 			<div className="MxCurrencyItem">
 
 				<input type="checkbox" checked={checkbox} onChange={this.props.markCurrency.bind(this, cc)} />
-				<span>{this.props.currency.cc}</span>
+				<strong>{this.props.currency.cc}</strong>
+				<span>{this.props.currency.txt}</span>
 
 			</div>
 		);
 	}
 
 }
+
+CurrencyItem.propTypes = {
+	currency: PropTypes.object.isRequired,
+	markCurrency: PropTypes.func.isRequired,
+	availableCurrency: PropTypes.array.isRequired
+};
 
 export default CurrencyItem;
