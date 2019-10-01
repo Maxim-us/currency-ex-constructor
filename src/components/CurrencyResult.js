@@ -18,7 +18,9 @@ class CurrencyResult extends Component {
 					/>
 				)
 
-			}			
+			}
+
+			return true;		
 
 		} );
 
@@ -44,10 +46,28 @@ class CurrencyResult extends Component {
 			borderRadius: '4px'
 		};
 
+		// translation
+		const _lang = this.props.appLanguage;
+		let buy, sell, ukr = '';
+
+		this.props.translate.filter( lang => {
+
+			if( lang.lang === _lang ) {
+
+				buy = lang.buy;
+				sell = lang.sell;
+				ukr = lang.ukr;
+
+			}
+
+			return true;
+
+		} );
+
 		return (
 			<div className="MxCurrencyResultBox" style={MxCurrencyResultBoxStyle}>
 
-				<span>Курс валют в Украине {this.props.date}</span>				
+				<a href="https://damvb.org/"><strong>Курс валют</strong></a> <span>в {ukr} {this.props.date}</span>				
 
 				<div style={MxCurrencyResultCenterBoxStyle}>
 
@@ -58,8 +78,8 @@ class CurrencyResult extends Component {
 							<tr>
 
 								<th></th>
-								<th>Покупка</th>
-								<th>Продажа</th>
+								<th>{buy}</th>
+								<th>{sell}</th>
 								<th>НацБанк</th>
 
 							</tr>
@@ -80,6 +100,9 @@ class CurrencyResult extends Component {
 }
 
 CurrencyResult.propTypes = {
+	date: PropTypes.string.isRequired,
+	translate: PropTypes.array.isRequired,
+	appLanguage: PropTypes.string.isRequired,
 	currencies: PropTypes.array.isRequired,
 	cssStyles: PropTypes.object,
 	availableCurrency: PropTypes.array.isRequired

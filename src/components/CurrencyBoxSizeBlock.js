@@ -10,7 +10,7 @@ class CurrencyBoxSizeBlock extends Component {
 
 	render() {
 
-		let inputColors = this.state.boxSize.map( ( _input, index ) => {
+		let inputSize = this.state.boxSize.map( ( _input, index ) => {
 
 			let _checked = false;
 
@@ -38,7 +38,7 @@ class CurrencyBoxSizeBlock extends Component {
 		return (
 			<div className="MxCurrencyBlockColor">
 
-				{inputColors}
+				{inputSize}
 
 			</div>
 		);

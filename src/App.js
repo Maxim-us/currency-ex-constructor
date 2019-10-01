@@ -4,6 +4,8 @@ import CurrencyItem from './components/CurrencyItem';
 import CurrencyResult from './components/CurrencyResult';
 import CurrencyBoxColorBlock from './components/CurrencyBoxColorBlock';
 import CurrencyBoxSizeBlock from './components/CurrencyBoxSizeBlock';
+import CurrencyCodeSnippet from './components/CurrencyCodeSnippet';
+import CurrencyBoxLanguageBlock from './components/CurrencyBoxLanguageBlock';
 
 import './App.css'; 
 
@@ -20,14 +22,29 @@ class App extends Component {
       bgc: '#dde9cb',
       maxWidth: '600px'
     },
-    date: ''  
+    date: '',
+    translate: [
+      {
+        lang: 'ru',
+        buy: 'Покупка',
+        sell: 'Продажа',
+        ukr: 'Украине'
+      },
+      {
+        lang: 'ua',
+        buy: 'Купівля',
+        sell: 'Продаж',
+        ukr: 'Україні'
+      }
+    ],
+    appLanguage: 'ru'
   };
 
   UNSAFE_componentWillMount() {
     
     // NB
-    fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json' )
-    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json
+    fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json' )
+    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json
     .then( res => res.json() )
     .then( currenciesNB => {
       this.setState( { currenciesNB: currenciesNB } )
@@ -37,10 +54,12 @@ class App extends Component {
     let today = new Date();    
     let date = today.getDate() + '.' + (today.getMonth()+1) + '.' + today.getFullYear();
     
+    // date
     this.setState( {
       date: date
     } );
-  }
+    
+  }  
 
   // choose currency
   markCurrency = ( cc ) => {
@@ -84,6 +103,7 @@ class App extends Component {
 
   // size
   changeBoxSize = ( e ) => {
+
     let _cssStyles = this.state.cssStyles;
 
     _cssStyles.maxWidth = e.target.value;
@@ -91,6 +111,18 @@ class App extends Component {
     this.setState( {
       cssStyles: _cssStyles
     } );
+
+  }
+
+  // lang
+  changeBoxLang = ( e ) => {
+
+    let _appLanguage = e.target.value;
+
+    this.setState( {
+      appLanguage: _appLanguage
+    } );
+
   }
 
   render() {
@@ -112,7 +144,7 @@ class App extends Component {
         {/* Choose currency */}
         <div className="MxCurrencyExListOfCurrency">
 
-          <h2>Choose currency</h2>
+          <h2>Выберите валюту</h2>
           <div>
 
             {currenciesNB}
@@ -124,7 +156,7 @@ class App extends Component {
         {/* color */}
         <div className="MxCurrencyBoxColor">
 
-          <h2>Choose color</h2>
+          <h2>Выберите цвет блока</h2>
 
           <div>
           
@@ -140,7 +172,7 @@ class App extends Component {
         {/* size */}
         <div className="MxCurrencyBoxSize">
 
-          <h2>Choose size</h2>
+          <h2>Выберите размер блока</h2>
 
           <div>
           
@@ -153,17 +185,51 @@ class App extends Component {
 
         </div>
 
+      {/* language */}
+        <div className="MxCurrencyBoxSize">
+
+          <h2>Выберите язык</h2>
+
+          <div>
+          
+            <CurrencyBoxLanguageBlock
+              changeBoxLang={this.changeBoxLang}
+              appLanguage={this.state.appLanguage}
+            />
+
+          </div>
+
+        </div>
+
         {/* result */}
         <div className="MxCurrencyResult">
 
-          <h2>Result</h2>
+          <h2>Результат</h2>
           <div>
 
             <CurrencyResult
+              translate={this.state.translate}
+              appLanguage={this.state.appLanguage}
               date={this.state.date}
               cssStyles={this.state.cssStyles}
               currencies={this.state.currenciesNB}
               availableCurrency={this.state.availableCurrency}
+            />
+
+          </div>
+
+        </div>
+
+        {/* code snippet */}
+        <div className="MxCurrencyCodeSnippet">
+
+          <h2>Код для вставки</h2>
+          <div>
+
+            <CurrencyCodeSnippet
+              appLanguage={this.state.appLanguage}
+              availableCurrency={this.state.availableCurrency}
+              cssStyles={this.state.cssStyles}
             />
 
           </div>

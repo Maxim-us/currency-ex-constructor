@@ -10,7 +10,8 @@
     display: inline-block;
 }
 .MxCurrencyBlockColorItem,
-.MxCurrencyBlockSizeItem {
+.MxCurrencyBlockSizeItem,
+.MxCurrencyBlockLangItem {
 	display: inline-block;
 	margin-right: 20px;
 }
@@ -20,6 +21,12 @@
     display: inline-block;
     margin-left: 5px;
 	margin-top: 4px;
+}
+.CurrencyCodeSnippet textarea {
+	width: 100%;
+	max-width: 400px;
+	height: 200px;
+	max-height: 200px;
 }
 
 @media only screen and (max-width: 992px) {
