@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import uuid from 'react-uuid';
-import CurrencyItem from './component/CurrencyItem';
-import CurrencyResult from './component/CurrencyResult';
-import MxCurrencyBoxColorBlock from './component/MxCurrencyBoxColorBlock';
+import CurrencyItem from './components/CurrencyItem';
+import CurrencyResult from './components/CurrencyResult';
+import CurrencyBoxColorBlock from './components/CurrencyBoxColorBlock';
+import CurrencyBoxSizeBlock from './components/CurrencyBoxSizeBlock';
 
-import './App.css';
+import './App.css'; 
 
 class App extends Component {
 
@@ -18,7 +19,8 @@ class App extends Component {
     cssStyles: {
       bgc: '#dde9cb',
       maxWidth: '600px'
-    }    
+    },
+    date: ''  
   };
 
   UNSAFE_componentWillMount() {
@@ -31,6 +33,13 @@ class App extends Component {
       this.setState( { currenciesNB: currenciesNB } )
     } );
 
+    // current date
+    let today = new Date();    
+    let date = today.getDate() + '.' + (today.getMonth()+1) + '.' + today.getFullYear();
+    
+    this.setState( {
+      date: date
+    } );
   }
 
   // choose currency
@@ -62,7 +71,7 @@ class App extends Component {
 
   // bgc
   changeBGC = ( e ) => {
-    // console.log( e.target.value );
+
     let _cssStyles = this.state.cssStyles;
 
     _cssStyles.bgc = e.target.value;
@@ -70,12 +79,18 @@ class App extends Component {
     this.setState( {
       cssStyles: _cssStyles
     } );
+
   }
 
-  componentDidUpdate() {
+  // size
+  changeBoxSize = ( e ) => {
+    let _cssStyles = this.state.cssStyles;
 
-    // console.log( this.state );
+    _cssStyles.maxWidth = e.target.value;
 
+    this.setState( {
+      cssStyles: _cssStyles
+    } );
   }
 
   render() {
@@ -113,8 +128,25 @@ class App extends Component {
 
           <div>
           
-            <MxCurrencyBoxColorBlock
+            <CurrencyBoxColorBlock
               changeBGC={this.changeBGC}
+              cssStyles={this.state.cssStyles}
+            />
+
+          </div>
+
+        </div>
+
+        {/* size */}
+        <div className="MxCurrencyBoxSize">
+
+          <h2>Choose size</h2>
+
+          <div>
+          
+            <CurrencyBoxSizeBlock
+              changeBoxSize={this.changeBoxSize}
+              cssStyles={this.state.cssStyles}
             />
 
           </div>
@@ -128,6 +160,7 @@ class App extends Component {
           <div>
 
             <CurrencyResult
+              date={this.state.date}
               cssStyles={this.state.cssStyles}
               currencies={this.state.currenciesNB}
               availableCurrency={this.state.availableCurrency}

@@ -47,7 +47,7 @@ class CurrencyResult extends Component {
 		return (
 			<div className="MxCurrencyResultBox" style={MxCurrencyResultBoxStyle}>
 
-				<span>Курс валют в Украине 30.09.2019</span>				
+				<span>Курс валют в Украине {this.props.date}</span>				
 
 				<div style={MxCurrencyResultCenterBoxStyle}>
 

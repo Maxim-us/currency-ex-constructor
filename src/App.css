@@ -9,7 +9,8 @@
 	width: 50px;
     display: inline-block;
 }
-.MxCurrencyBlockColorItem {
+.MxCurrencyBlockColorItem,
+.MxCurrencyBlockSizeItem {
 	display: inline-block;
 	margin-right: 20px;
 }
