@@ -37,13 +37,21 @@ class CurrencyResult extends Component {
 			textAlign: 'center',
 			borderRadius: '4px',
 			paddingBottom: '1px',
-			border: border
+			border: border,
+			fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+			fontSize: '14px'
 		};
 
 		const MxCurrencyResultCenterBoxStyle = {
 			backgroundColor: "#ffffff",
 			margin: '4px',
 			borderRadius: '4px'
+		};
+
+		const tableStyle = {
+			width: '100%',
+			fontSize: '14px',
+    		textAlign: 'center'
 		};
 
 		// translation
@@ -67,11 +75,11 @@ class CurrencyResult extends Component {
 		return (
 			<div className="MxCurrencyResultBox" style={MxCurrencyResultBoxStyle}>
 
-				<a href="https://damvb.org/"><strong>Курс валют</strong></a> <span>в {ukr} {this.props.date}</span>				
+				<a href="https://damvb.org/"><strong>Курс валют</strong></a> <span>в {ukr}, {this.props.date}</span>				
 
 				<div style={MxCurrencyResultCenterBoxStyle}>
 
-					<table style={{width: '100%'}}>
+					<table style={tableStyle}>
 
 						<tbody>
 

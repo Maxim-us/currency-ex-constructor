@@ -25,7 +25,7 @@ class CurrencyResultItem extends Component {
 
 			<tr>
 
-				<td>{this.props.currency.cc}</td>
+				<td><strong>{this.props.currency.cc}</strong></td>
 				<td>{currBuy}</td>
 				<td>{currSell}</td>
 				<td>{parseFloat( this.props.currency.rate ).toFixed( 4 )}</td>

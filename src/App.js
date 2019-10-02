@@ -43,8 +43,8 @@ class App extends Component {
   UNSAFE_componentWillMount() {
     
     // NB
-    fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json' )
-    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json
+    fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json' )
+    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json
     .then( res => res.json() )
     .then( currenciesNB => {
       this.setState( { currenciesNB: currenciesNB } )
