@@ -39,7 +39,8 @@ class CurrencyResult extends Component {
 			paddingBottom: '1px',
 			border: border,
 			fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-			fontSize: '14px'
+			fontSize: '14px',
+			color: 'inherit'
 		};
 
 		const MxCurrencyResultCenterBoxStyle = {
@@ -52,6 +53,16 @@ class CurrencyResult extends Component {
 			width: '100%',
 			fontSize: '14px',
     		textAlign: 'center'
+		};
+
+		const cellsStyle = {
+			border: 'none',
+			textAlign: 'center'
+		};
+
+		const linkStyle = {
+			color: 'inherit',
+			textDecoration: 'none'
 		};
 
 		// translation
@@ -75,7 +86,7 @@ class CurrencyResult extends Component {
 		return (
 			<div className="MxCurrencyResultBox" style={MxCurrencyResultBoxStyle}>
 
-				<a href="https://damvb.org/"><strong>Курс валют</strong></a> <span>в {ukr}, {this.props.date}</span>				
+				<a href="https://damvb.org/kurs-informer/" style={linkStyle}>Курс валют</a> <span>в {ukr}, {this.props.date}</span>				
 
 				<div style={MxCurrencyResultCenterBoxStyle}>
 
@@ -85,10 +96,10 @@ class CurrencyResult extends Component {
 
 							<tr>
 
-								<th></th>
-								<th>{buy}</th>
-								<th>{sell}</th>
-								<th>НацБанк</th>
+								<th style={cellsStyle}></th>
+								<th style={cellsStyle}>{buy}</th>
+								<th style={cellsStyle}>{sell}</th>
+								<th style={cellsStyle}>НацБанк</th>
 
 							</tr>
 

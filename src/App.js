@@ -41,17 +41,46 @@ class App extends Component {
   };
 
   UNSAFE_componentWillMount() {
+
+    let today = new Date();
     
     // NB
     fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json' )
     // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json
     .then( res => res.json() )
     .then( currenciesNB => {
-      this.setState( { currenciesNB: currenciesNB } )
+
+      let _currenciesNB = currenciesNB;
+
+      if( currenciesNB.length < 3 ) {
+
+          let dayNumber = today.getDate();
+
+          if( dayNumber < 10 ) {
+
+            dayNumber = '0'+dayNumber;
+
+          }
+
+          let todatDate = today.getFullYear()+''+(today.getMonth()+1)+''+dayNumber;
+
+          fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date='+todatDate+'&json' )
+          .then( res2 => res2.json() )
+          .then( currenciesNB2 => {
+
+            this.setState( { currenciesNB: currenciesNB2 } );
+
+          } );
+
+      } else {
+
+        this.setState( { currenciesNB: _currenciesNB } );
+
+      }
+      
     } );
 
-    // current date
-    let today = new Date();    
+    // current date    
     let date = today.getDate() + '.' + (today.getMonth()+1) + '.' + today.getFullYear();
     
     // date
@@ -144,19 +173,19 @@ class App extends Component {
         {/* Choose currency */}
         <div className="MxCurrencyExListOfCurrency">
 
-          <h2>Выберите валюту</h2>
+          <h4>Выберите валюту</h4>
           <div>
 
             {currenciesNB}
 
-          </div>
+          </div> 
           
         </div>
 
         {/* color */}
         <div className="MxCurrencyBoxColor">
 
-          <h2>Выберите цвет блока</h2>
+          <h4>Выберите цвет блока</h4>
 
           <div>
           
@@ -172,7 +201,7 @@ class App extends Component {
         {/* size */}
         <div className="MxCurrencyBoxSize">
 
-          <h2>Выберите размер блока</h2>
+          <h4>Выберите размер блока</h4>
 
           <div>
           
@@ -188,7 +217,7 @@ class App extends Component {
       {/* language */}
         <div className="MxCurrencyBoxSize">
 
-          <h2>Выберите язык</h2>
+          <h4>Выберите язык</h4>
 
           <div>
           
@@ -204,7 +233,7 @@ class App extends Component {
         {/* result */}
         <div className="MxCurrencyResult">
 
-          <h2>Результат</h2>
+          <h4>Результат</h4>
           <div>
 
             <CurrencyResult
@@ -223,7 +252,7 @@ class App extends Component {
         {/* code snippet */}
         <div className="MxCurrencyCodeSnippet">
 
-          <h2>Код для вставки</h2>
+          <h4>Код для вставки</h4>
           <div>
 
             <CurrencyCodeSnippet

@@ -21,14 +21,18 @@ class CurrencyResultItem extends Component {
 
 		const currSell = parseFloat( ( this.props.currency.rate * 101.2506 ) / 100 ).toFixed( 4 );
 
+		const cellsStyle = {
+			border: 'none'
+		};
+
 		return (
 
 			<tr>
 
-				<td><strong>{this.props.currency.cc}</strong></td>
-				<td>{currBuy}</td>
-				<td>{currSell}</td>
-				<td>{parseFloat( this.props.currency.rate ).toFixed( 4 )}</td>
+				<td style={cellsStyle}><strong>{this.props.currency.cc}</strong></td>
+				<td style={cellsStyle}>{currBuy}</td>
+				<td style={cellsStyle}>{currSell}</td>
+				<td style={cellsStyle}>{parseFloat( this.props.currency.rate ).toFixed( 4 )}</td>
 
 			</tr>
 			
