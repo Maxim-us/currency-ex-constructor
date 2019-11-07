@@ -60,10 +60,10 @@ class CurrencyResult extends Component {
 			textAlign: 'center'
 		};
 
-		const linkStyle = {
-			color: 'inherit',
-			textDecoration: 'none'
-		};
+		// const linkStyle = {
+		// 	color: 'inherit',
+		// 	textDecoration: 'none'
+		// };
 
 		// translation
 		const _lang = this.props.appLanguage;
@@ -86,7 +86,7 @@ class CurrencyResult extends Component {
 		return (
 			<div className="MxCurrencyResultBox" style={MxCurrencyResultBoxStyle}>
 
-				<a href="https://damvb.org/kurs-informer/" style={linkStyle}>Курс валют</a> <span>в {ukr}, {this.props.date}</span>				
+				Курс валют <span>в {ukr}, {this.props.date}</span>				
 
 				<div style={MxCurrencyResultCenterBoxStyle}>
 

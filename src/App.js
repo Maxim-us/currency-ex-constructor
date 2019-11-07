@@ -4,7 +4,8 @@ import CurrencyItem from './components/CurrencyItem';
 import CurrencyResult from './components/CurrencyResult';
 import CurrencyBoxColorBlock from './components/CurrencyBoxColorBlock';
 import CurrencyBoxSizeBlock from './components/CurrencyBoxSizeBlock';
-import CurrencyCodeSnippet from './components/CurrencyCodeSnippet';
+// import CurrencyCodeSnippet from './components/CurrencyCodeSnippet';
+import CurrencyShortCode from './components/CurrencyShortCode';
 import CurrencyBoxLanguageBlock from './components/CurrencyBoxLanguageBlock';
 
 import './App.css'; 
@@ -43,10 +44,15 @@ class App extends Component {
   UNSAFE_componentWillMount() {
 
     let today = new Date();
-    
+
+    let dayNumber = today.getDate() < 10 ? '0'+today.getDate() : today.getDate();
+
+    let dateForJson = today.getFullYear()+''+(today.getMonth()+1)+''+dayNumber;
+
     // NB
-    fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json' )
-    // https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=20190930&json
+    const nbuUrlJson = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date='+dateForJson+'&json';
+    
+    fetch( nbuUrlJson )
     .then( res => res.json() )
     .then( currenciesNB => {
 
@@ -54,39 +60,52 @@ class App extends Component {
 
       if( currenciesNB.length < 3 ) {
 
-          let dayNumber = today.getDate();
+        let arrayOfCurrencies = localStorage.getItem( 'reservCurrenciesNB' );
 
-          if( dayNumber < 10 ) {
+        let jsonPars = JSON.parse( arrayOfCurrencies );
 
-            dayNumber = '0'+dayNumber;
+        if( arrayOfCurrencies === null ) {
 
-          }
+          jsonPars = [];
 
-          let todatDate = today.getFullYear()+''+(today.getMonth()+1)+''+dayNumber;
+        }
 
-          fetch( 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date='+todatDate+'&json' )
-          .then( res2 => res2.json() )
-          .then( currenciesNB2 => {
-
-            this.setState( { currenciesNB: currenciesNB2 } );
-
-          } );
+        this.setState( { currenciesNB: jsonPars } );
 
       } else {
 
         this.setState( { currenciesNB: _currenciesNB } );
 
+        localStorage.setItem( 'reservCurrenciesNB', JSON.stringify( _currenciesNB ) );
+
       }
       
-    } );
+    } )
+    .catch( (error) => {
 
-    // current date    
+      let arrayOfCurrencies = localStorage.getItem( 'reservCurrenciesNB' );
+
+      let jsonPars = JSON.parse( arrayOfCurrencies );
+
+        if( arrayOfCurrencies === null ) {
+
+          jsonPars = [];
+          
+        }
+      
+      this.setState( { currenciesNB: jsonPars } );
+
+    });
+
+    // current date
     let date = today.getDate() + '.' + (today.getMonth()+1) + '.' + today.getFullYear();
     
     // date
     this.setState( {
       date: date
     } );
+
+    console.log( 'currency exchange v. - 07.10.2019' );
     
   }  
 
@@ -249,13 +268,30 @@ class App extends Component {
 
         </div>
 
-        {/* code snippet */}
+        {/* code snippet
         <div className="MxCurrencyCodeSnippet">
 
           <h4>Код для вставки</h4>
           <div>
 
             <CurrencyCodeSnippet
+              appLanguage={this.state.appLanguage}
+              availableCurrency={this.state.availableCurrency}
+              cssStyles={this.state.cssStyles}
+            />
+
+          </div>
+
+        </div> */}
+
+        {/* shortcode */}
+        <div className="MxCurrencyShortcode">
+
+          <h4>Шорткод для вставки</h4>
+          <p>Вставьте этот шорткод на страницу сайта, где должен отображаться блок курса валют.</p>
+          <div>
+
+            <CurrencyShortCode
               appLanguage={this.state.appLanguage}
               availableCurrency={this.state.availableCurrency}
               cssStyles={this.state.cssStyles}

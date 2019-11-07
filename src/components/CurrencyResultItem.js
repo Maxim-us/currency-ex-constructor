@@ -17,9 +17,9 @@ class CurrencyResultItem extends Component {
 
 	render() {
 
-		const currBuy = parseFloat( ( this.props.currency.rate * 100.0108 ) / 100 ).toFixed( 4 );
+		const currBuy = parseFloat( ( this.props.currency.rate * 100.0108 ) / 100 ).toFixed( 3 );
 
-		const currSell = parseFloat( ( this.props.currency.rate * 101.2506 ) / 100 ).toFixed( 4 );
+		const currSell = parseFloat( ( this.props.currency.rate * 101.2506 ) / 100 ).toFixed( 3 );
 
 		const cellsStyle = {
 			border: 'none'
