@@ -4,8 +4,8 @@ import CurrencyItem from './components/CurrencyItem';
 import CurrencyResult from './components/CurrencyResult';
 import CurrencyBoxColorBlock from './components/CurrencyBoxColorBlock';
 import CurrencyBoxSizeBlock from './components/CurrencyBoxSizeBlock';
-// import CurrencyCodeSnippet from './components/CurrencyCodeSnippet';
-import CurrencyShortCode from './components/CurrencyShortCode';
+import CurrencyCodeSnippet from './components/CurrencyCodeSnippet';
+// import CurrencyShortCode from './components/CurrencyShortCode';
 import CurrencyBoxLanguageBlock from './components/CurrencyBoxLanguageBlock';
 
 import './App.css'; 
@@ -47,7 +47,9 @@ class App extends Component {
 
     let dayNumber = today.getDate() < 10 ? '0'+today.getDate() : today.getDate();
 
-    let dateForJson = today.getFullYear()+''+(today.getMonth()+1)+''+dayNumber;
+    let _month = ( today.getMonth()+1 ) < 10 ? '0'+( today.getMonth()+1 ) : ( today.getMonth()+1 );
+
+    let dateForJson = today.getFullYear()+''+ _month +''+dayNumber;
 
     // NB
     const nbuUrlJson = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date='+dateForJson+'&json';
@@ -105,7 +107,7 @@ class App extends Component {
       date: date
     } );
 
-    console.log( 'currency exchange v. - 07.10.2019' );
+    console.log( 'currency exchange v. - 01.02.2020' );
     
   }  
 
@@ -268,7 +270,7 @@ class App extends Component {
 
         </div>
 
-        {/* code snippet
+        {/* code snippet */}
         <div className="MxCurrencyCodeSnippet">
 
           <h4>Код для вставки</h4>
@@ -282,9 +284,9 @@ class App extends Component {
 
           </div>
 
-        </div> */}
+        </div>
 
-        {/* shortcode */}
+        {/* shortcode
         <div className="MxCurrencyShortcode">
 
           <h4>Шорткод для вставки</h4>
@@ -299,7 +301,7 @@ class App extends Component {
 
           </div>
 
-        </div>
+        </div> */}
 
       </div>
     );
